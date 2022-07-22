@@ -28,9 +28,11 @@ export default class CountTracker {
   }
 
   public getCount(): Count {
+    const { balls, strikes } = this;
+
     return {
-      balls: 0,
-      strikes: 0
+      balls,
+      strikes
     };
   }
 }
