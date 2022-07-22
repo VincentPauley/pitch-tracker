@@ -1,3 +1,5 @@
+require('module-alias/register');
+
 import CountTracker from './classes/CountTracker';
 
 export default class PitchTracker {

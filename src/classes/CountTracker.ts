@@ -1,3 +1,5 @@
+import Count from '@/interfaces/Count';
+
 export default class CountTracker {
   private _balls: number = 0;
   private _strikes: number = 0;
@@ -25,10 +27,10 @@ export default class CountTracker {
     this.strikes = strikes;
   }
 
-  public getCount() {
+  public getCount(): Count {
     return {
-      balls: this.balls,
-      strikes: this.strikes
+      balls: 0,
+      strikes: 0
     };
   }
 }
