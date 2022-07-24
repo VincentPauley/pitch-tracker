@@ -2,18 +2,21 @@ require('module-alias/register');
 
 import CountTracker from './classes/CountTracker';
 
-export default class PitchTracker {
-  pitches() {
-    return 78;
-  }
+import Count from '@/interfaces/Count';
+import CountUpdate from '@/interfaces/CountUpdate';
 
+export default class PitchTracker {
   private currentCountTracker: CountTracker;
 
   constructor() {
     this.currentCountTracker = new CountTracker();
   }
 
-  public getCurrentCount() {
+  public getCurrentCount(): Count {
     return this.currentCountTracker.getCount();
+  }
+
+  public updateCurrentCount(update: CountUpdate): Count {
+    return this.currentCountTracker.updateCount(update);
   }
 }
