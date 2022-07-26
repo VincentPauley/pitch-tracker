@@ -1,5 +1,6 @@
 import Count from '@/interfaces/Count';
 import CountUpdate from '@/interfaces/CountUpdate';
+import CountData from '@/interfaces/CountData';
 
 export default class CountTracker {
   private _balls: number = 0;
@@ -39,16 +40,25 @@ export default class CountTracker {
     this.strikes = strikes;
   }
 
-  public getCount(): Count {
+  public getCount(): CountData {
     const { balls, strikes } = this;
 
     return {
       balls,
-      strikes
+      strikes,
+      result: 'PENDING'
     };
+    // const x: CountData = {
+    //   count: {
+    //     balls,
+    //     strikes
+    //   },
+    //   over: true
+    // }
+    // return x;
   }
 
-  public updateCount(update: CountUpdate): Count {
+  public updateCount(update: CountUpdate): CountData {
     const { type } = update;
 
     if (this.balls >= this.maxBalls) {

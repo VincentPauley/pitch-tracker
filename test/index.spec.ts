@@ -8,28 +8,28 @@ describe('class: PitchTracker', () => {
   });
 
   test('it can return an active count', () => {
-    const defaultCount = { balls: 0, strikes: 0 };
+    const defaultCount = { balls: 0, strikes: 0, result: 'PENDING' };
 
-    expect(TestPitchTracker.getCurrentCount()).toMatchObject(defaultCount);
+    expect(TestPitchTracker.getCurrentCount()).toStrictEqual(defaultCount);
   });
 
   describe('given the count is updated to increase the balls', () => {
     test('it reflects the updated count accurately', () => {
-      const expectedCount = { balls: 1, strikes: 0 };
+      const expectedCount = { balls: 1, strikes: 0, result: 'PENDING' };
 
       expect(
         TestPitchTracker.updateCurrentCount({ type: 'BALL' })
-      ).toMatchObject(expectedCount);
+      ).toStrictEqual(expectedCount);
     });
   });
 
   describe('given the count is update to increase the strikes', () => {
-    const expectedCount = { balls: 0, strikes: 1 };
+    const expectedCount = { balls: 0, strikes: 1, result: 'PENDING' };
 
     test('it reflects the updated count accurately', () => {
       expect(
         TestPitchTracker.updateCurrentCount({ type: 'STRIKE' })
-      ).toMatchObject(expectedCount);
+      ).toStrictEqual(expectedCount);
     });
   });
 });
