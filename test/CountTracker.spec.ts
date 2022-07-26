@@ -32,4 +32,20 @@ describe('class: PitchTracker', () => {
       ).toStrictEqual(expectedCount);
     });
   });
+
+  describe('given the count is updated with a strike 3 times', () => {
+    test('then the result becomes a strikeout', () => {
+      TestPitchTracker.updateCurrentCount({ type: 'STRIKE' });
+      TestPitchTracker.updateCurrentCount({ type: 'STRIKE' });
+
+      const expectedCount = { balls: 0, strikes: 3, result: 'STRIKEOUT' };
+
+      // assertion on 3rd strike
+      expect(
+        TestPitchTracker.updateCurrentCount({
+          type: 'STRIKE'
+        })
+      ).toStrictEqual(expectedCount);
+    });
+  });
 });

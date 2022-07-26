@@ -2,6 +2,14 @@ import Count from '@/interfaces/Count';
 import CountUpdate from '@/interfaces/CountUpdate';
 import CountData from '@/interfaces/CountData';
 
+/**
+ * @class CountTracker
+ *
+ * This simple class maintains the balls/strikes during a single
+ * player's at-bat.  it ensures count cannot be exceeded and can
+ * determine if the count has ended at the plate (Strikeout/Walk).
+ * A new CountTracker class should be instantiated for every at-bat.
+ */
 export default class CountTracker {
   private _balls: number = 0;
   private _strikes: number = 0;
@@ -33,6 +41,12 @@ export default class CountTracker {
     return this._maxStrikes;
   }
 
+  private determineResult() {
+    if (this.balls >= this.maxBalls) return 'WALK';
+    if (this.strikes >= this.maxStrikes) return 'STRIKEOUT';
+    return 'PENDING';
+  }
+
   constructor(count: Count = { balls: 0, strikes: 0 }) {
     const { balls, strikes } = count;
 
@@ -42,20 +56,13 @@ export default class CountTracker {
 
   public getCount(): CountData {
     const { balls, strikes } = this;
+    const result = this.determineResult();
 
     return {
       balls,
       strikes,
-      result: 'PENDING'
+      result
     };
-    // const x: CountData = {
-    //   count: {
-    //     balls,
-    //     strikes
-    //   },
-    //   over: true
-    // }
-    // return x;
   }
 
   public updateCount(update: CountUpdate): CountData {
@@ -73,6 +80,5 @@ export default class CountTracker {
     if (type === 'STRIKE') this.strikes = this.strikes + 1;
 
     return this.getCount();
-    // now update by type
   }
 }
