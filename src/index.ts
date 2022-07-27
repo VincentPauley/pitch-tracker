@@ -4,11 +4,36 @@ import CountTracker from './classes/CountTracker';
 
 import Count from '@/interfaces/Count';
 import CountUpdate from '@/interfaces/CountUpdate';
+import PitcherIDs from '@/interfaces/PitcherIDs';
 
 export default class PitchTracker {
   private currentCountTracker: CountTracker;
 
-  constructor() {
+  pitches = [];
+
+  private _activePitcherIds: PitcherIDs = {
+    home: '',
+    away: ''
+  };
+
+  private activeDefense: 'home' | 'away' = 'home';
+
+  private get activePitcherID() {
+    return this._activePitcherIds[this.activeDefense];
+  }
+
+  private set activePitcherIDs(pitcherIDs: PitcherIDs) {
+    this._activePitcherIds = pitcherIDs;
+  }
+
+  constructor(
+    startingPitcherIDs: PitcherIDs = {
+      home: 'DEFAULT-HOME',
+      away: 'DEFAULT-AWAY'
+    }
+  ) {
+    this.activePitcherIDs = startingPitcherIDs;
+
     this.currentCountTracker = new CountTracker();
   }
 
@@ -18,5 +43,9 @@ export default class PitchTracker {
 
   public updateCurrentCount(update: CountUpdate): Count {
     return this.currentCountTracker.updateCount(update);
+  }
+
+  public getActivePitcherID(): string {
+    return this.activePitcherID;
   }
 }

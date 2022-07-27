@@ -1,6 +1,6 @@
 import PitchTracker from '../src/index';
 
-describe('class: PitchTracker', () => {
+describe('class: PitchTracker >> class: CountTracker', () => {
   let TestPitchTracker: PitchTracker;
 
   beforeEach(() => {
