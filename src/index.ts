@@ -16,14 +16,22 @@ export default class PitchTracker {
     away: ''
   };
 
-  private activeDefense: 'home' | 'away' = 'home';
+  private _activePitchingSide: 'home' | 'away' = 'home';
 
   private get activePitcherID() {
-    return this._activePitcherIds[this.activeDefense];
+    return this._activePitcherIds[this._activePitchingSide];
   }
 
   private set activePitcherIDs(pitcherIDs: PitcherIDs) {
     this._activePitcherIds = pitcherIDs;
+  }
+
+  private get activePitchingSide(): 'home' | 'away' {
+    return this._activePitchingSide;
+  }
+
+  private set activePitchingSide(side: 'home' | 'away') {
+    this._activePitchingSide = side;
   }
 
   constructor(
@@ -47,5 +55,10 @@ export default class PitchTracker {
 
   public getActivePitcherID(): string {
     return this.activePitcherID;
+  }
+
+  public toggleActivePitchingSide(): void {
+    const otherSide = this.activePitchingSide === 'home' ? 'away' : 'home';
+    this.activePitchingSide = otherSide;
   }
 }
